@@ -9,6 +9,7 @@ import com.kantora19.javahtmlprinter.dto.Pulse;
 import com.kantora19.javahtmlprinter.dto.Response;
 import com.kantora19.javahtmlprinter.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.xhtmlrenderer.simple.Graphics2DRenderer;
 
@@ -102,13 +103,14 @@ public class PrinterService {
             temp.deleteOnExit();
 
             // Write to temp file
+            String resourcePath = System.getenv().get("kantora-printer-resource");
+            String logo = ("file:/" + resourcePath + "\\logo.png").replaceAll("\\\\", "/");
+            String footer = ("file:/" + resourcePath + "\\footer.png").replaceAll("\\\\", "/");
             BufferedWriter out = new BufferedWriter(new FileWriter(temp));
-            String logoImage =
-                    ClassLoader.getSystemResource("static/kantora-t.png").toString();
-            String georgia =
-                    ClassLoader.getSystemResource("static/geo.png").toString();
-            String html = printDTO.getHtml().replace("${{LOGO_IMAGE_SOURCE}}", logoImage);
-            html = html.replace("${{GEO_MAP_SOURCE}}", georgia);
+            log.info("LOGO Image" + logo);
+            log.info("Georgia Image" + footer);
+            String html = printDTO.getHtml().replace("${{LOGO_IMAGE_SOURCE}}", logo);
+            html = html.replace("${{GEO_MAP_SOURCE}}", footer);
             out.write(html);
             out.close();
             return Optional.of(temp);
