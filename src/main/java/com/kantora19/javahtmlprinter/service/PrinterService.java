@@ -43,7 +43,7 @@ public class PrinterService {
     }
 
     public List<String> getAvailablePrinters() {
-        return List.of(PrinterOutputStream.getListPrintServicesNames());
+        return Arrays.asList(PrinterOutputStream.getListPrintServicesNames());
     }
 
     public Pulse checkStatus(String printerName) {

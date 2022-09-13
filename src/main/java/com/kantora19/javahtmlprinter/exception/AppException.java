@@ -3,8 +3,6 @@ package com.kantora19.javahtmlprinter.exception;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serial;
-
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class AppException extends RuntimeException {

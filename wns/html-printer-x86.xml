@@ -1,0 +1,12 @@
+<service>
+    <id>html-printer</id>
+    <name>HTML Printer</name>
+    <description>This service other services to print HTML files on Esc/Pos printers.</description>
+    <executable>java</executable>
+    <arguments>-Xrs -Xmx256m -jar "html-printer.jar" --httpPort=8099</arguments>
+    <log mode="roll-by-size-time">
+        <sizeThreshold>10240</sizeThreshold>
+        <pattern>yyyyMMdd</pattern>
+        <autoRollAtTime>00:00:00</autoRollAtTime>
+    </log>
+</service>
